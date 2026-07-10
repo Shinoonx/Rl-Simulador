@@ -3,68 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RL Guard: Detección de Intrusos</title>
-    <!-- Aquí conectamos el diseño -->
+    <title>RL Defender: Cyber Security</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
-        <h1>Aprendizaje por Refuerzo</h1>
-        <p>Simulador interactivo de un Sistema de Detección de Intrusos (IDS)</p>
+        <h1>RL Guard: NODO DE DEFENSA</h1>
+        <p>Q-LEARNING APLICADO A PREVENCIÓN DE INTRUSIONES</p>
     </header>
 
     <main>
-       <!-- Sección 1: La Teoría requerida en tu rúbrica -->
         <section id="teoria">
-            <h2>1. ¿Qué es el Aprendizaje por Refuerzo (RL)?</h2>
-            <p>El Aprendizaje por Refuerzo es una rama de la Inteligencia Artificial donde un <strong>agente</strong> aprende a tomar decisiones interactuando con un entorno. A diferencia del aprendizaje supervisado, el agente aprende por ensayo y error, guiado por un sistema de recompensas y penalizaciones.</p>
+            <h2>¿Cómo opera el Agente de Defensa?</h2>
+            <p>El Aprendizaje por Refuerzo dota a nuestro nodo de seguridad de la capacidad de aprender mediante ensayo y error. El tráfico desciende hacia nuestra red; el agente debe aprender autónomamente a interceptar amenazas sin interrumpir el tráfico legítimo.</p>
             
-            <h3>Conceptos Clave del Modelo</h3>
+            <h3>Mapeo del Algoritmo</h3>
             <ul>
-                <li><strong>Entorno (Environment):</strong> El flujo continuo de tráfico de red hacia el servidor.</li>
-                <li><strong>Agente (Agent):</strong> Nuestro Sistema de Detección de Intrusos (IDS) inteligente.</li>
-                <li><strong>Estado (State):</strong> Las características del paquete de red actual (ej. normal o anómalo).</li>
-                <li><strong>Acción (Action):</strong> Permitir el tráfico o Bloquear la conexión.</li>
-                <li><strong>Recompensa (Reward):</strong> Puntos positivos por clasificar correctamente; puntos negativos (penalizaciones) por bloquear usuarios legítimos (Falso Positivo) o dejar pasar ataques (Falso Negativo).</li>
-                <li><strong>Política (Policy):</strong> La estrategia que el agente construye para maximizar su recompensa a largo plazo.</li>
+                <li><strong>Entorno:</strong> El flujo vertical de red exterior.</li>
+                <li><strong>Agente:</strong> El Nodo de Seguridad Central (Torreta Azul).</li>
+                <li><strong>Estado:</strong> Paquete acercándose (Tráfico Legítimo vs. Anomalía).</li>
+                <li><strong>Acción:</strong> Absorber datos (0) o Interceptar con Láser (1).</li>
+                <li><strong>Recompensa:</strong> Puntos por proteger la red o abatir anomalías. Severas penalizaciones por destruir datos útiles o permitir el ingreso de malware.</li>
             </ul>
-
-            <h2>2. El Algoritmo: Q-Learning Simplificado</h2>
-            <p>Para este simulador, el agente utiliza una variante de <em>Q-Learning</em>. Mantiene una tabla (Q-Table) interna donde evalúa qué tan "buena" es una acción dado un estado específico. Con cada paquete procesado, actualiza sus conocimientos usando la <strong>Ecuación de Bellman</strong>, ajustando su comportamiento hasta converger en una política óptima (bloquear solo los ataques).</p>
         </section>
 
-        <!-- Sección 2: Los controles que el usuario moverá -->
         <section id="controles">
-            <h2>Panel de Entrenamiento</h2>
+            <h2>Consola de Hiperparámetros</h2>
             
             <div class="control-group">
-                <label for="penalizacion-fp">Penalización Falso Positivo (Bloquear usuario normal): <span id="val-fp">-5</span></label>
+                <label for="penalizacion-fp">Penalizar Falso Positivo (Bloquear tráfico útil): <span id="val-fp">-5</span></label>
                 <input type="range" id="penalizacion-fp" min="-50" max="0" value="-5">
             </div>
 
             <div class="control-group">
-                <label for="penalizacion-fn">Penalización Falso Negativo (Dejar pasar ataque): <span id="val-fn">-20</span></label>
+                <label for="penalizacion-fn">Penalizar Falso Negativo (Dejar pasar anomalía): <span id="val-fn">-20</span></label>
                 <input type="range" id="penalizacion-fn" min="-50" max="0" value="-20">
             </div>
+            
+            <div class="control-group advanced">
+                <label for="tasa-alpha">Tasa de Aprendizaje (&alpha;): <span id="val-alpha">0.10</span></label>
+                <input type="range" id="tasa-alpha" min="0.01" max="1" step="0.01" value="0.10">
+                <small>Velocidad a la que la IA actualiza su política interna.</small>
+            </div>
 
-            <button id="btn-reiniciar">Reiniciar Aprendizaje</button>
+            <div class="control-group advanced">
+                <label for="tasa-epsilon">Modo Exploración (&epsilon;): <span id="val-epsilon">0.10</span></label>
+                <input type="range" id="tasa-epsilon" min="0" max="1" step="0.01" value="0.10">
+                <small>Probabilidad de tomar acciones al azar para descubrir nuevas tácticas.</small>
+            </div>
+
+            <button id="btn-reiniciar">REINICIAR MOTOR DE IA</button>
         </section>
 
-        <!-- Sección 3: Donde vivirá la animación -->
         <section id="simulador">
-            <h2>Tráfico de Red en Tiempo Real</h2>
-            <!-- Este canvas es nuestro "pizarrón" para dibujar con JavaScript -->
-            <canvas id="red-canvas" width="800" height="300"></canvas>
+            <h2>Radar de Intercepción en Tiempo Real</h2>
+            <canvas id="red-canvas" width="800" height="400"></canvas>
             
             <div id="metricas">
-                <p>Precisión: <span id="precision-text">0%</span></p>
-                <p>Recompensa Total: <span id="recompensa-text">0</span></p>
+                <p>Precisión (Accuracy): <span id="precision-text">0%</span></p>
+                <p>Recompensa Acumulada: <span id="recompensa-text">0</span></p>
+            </div>
+
+            <div id="q-table-container">
+                <h3>Matriz de Conocimiento (Q-Table)</h3>
+                <table id="q-table">
+                    <tr>
+                        <th>Flujo Detectado \ Acción</th>
+                        <th>Permitir (0)</th>
+                        <th>Interceptar (1)</th>
+                    </tr>
+                    <tr>
+                        <td class="aliado">Datos Legítimos</td>
+                        <td id="q-norm-0">0.00</td>
+                        <td id="q-norm-1">0.00</td>
+                    </tr>
+                    <tr>
+                        <td class="enemigo">Anomalía (Ataque)</td>
+                        <td id="q-atk-0">0.00</td>
+                        <td id="q-atk-1">0.00</td>
+                    </tr>
+                </table>
             </div>
         </section>
     </main>
 
-    <!-- Aquí conectamos la lógica -->
     <script src="app.js"></script>
 </body>
 </html>
