@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RL Guard: Detección de Intrusos</title>
+    <!-- Aquí conectamos el diseño -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Aprendizaje por Refuerzo</h1>
+        <p>Simulador interactivo de un Sistema de Detección de Intrusos (IDS)</p>
+    </header>
+
+    <main>
+       <!-- Sección 1: La Teoría requerida en tu rúbrica -->
+        <section id="teoria">
+            <h2>1. ¿Qué es el Aprendizaje por Refuerzo (RL)?</h2>
+            <p>El Aprendizaje por Refuerzo es una rama de la Inteligencia Artificial donde un <strong>agente</strong> aprende a tomar decisiones interactuando con un entorno. A diferencia del aprendizaje supervisado, el agente aprende por ensayo y error, guiado por un sistema de recompensas y penalizaciones.</p>
+            
+            <h3>Conceptos Clave del Modelo</h3>
+            <ul>
+                <li><strong>Entorno (Environment):</strong> El flujo continuo de tráfico de red hacia el servidor.</li>
+                <li><strong>Agente (Agent):</strong> Nuestro Sistema de Detección de Intrusos (IDS) inteligente.</li>
+                <li><strong>Estado (State):</strong> Las características del paquete de red actual (ej. normal o anómalo).</li>
+                <li><strong>Acción (Action):</strong> Permitir el tráfico o Bloquear la conexión.</li>
+                <li><strong>Recompensa (Reward):</strong> Puntos positivos por clasificar correctamente; puntos negativos (penalizaciones) por bloquear usuarios legítimos (Falso Positivo) o dejar pasar ataques (Falso Negativo).</li>
+                <li><strong>Política (Policy):</strong> La estrategia que el agente construye para maximizar su recompensa a largo plazo.</li>
+            </ul>
+
+            <h2>2. El Algoritmo: Q-Learning Simplificado</h2>
+            <p>Para este simulador, el agente utiliza una variante de <em>Q-Learning</em>. Mantiene una tabla (Q-Table) interna donde evalúa qué tan "buena" es una acción dado un estado específico. Con cada paquete procesado, actualiza sus conocimientos usando la <strong>Ecuación de Bellman</strong>, ajustando su comportamiento hasta converger en una política óptima (bloquear solo los ataques).</p>
+        </section>
+
+        <!-- Sección 2: Los controles que el usuario moverá -->
+        <section id="controles">
+            <h2>Panel de Entrenamiento</h2>
+            
+            <div class="control-group">
+                <label for="penalizacion-fp">Penalización Falso Positivo (Bloquear usuario normal): <span id="val-fp">-5</span></label>
+                <input type="range" id="penalizacion-fp" min="-50" max="0" value="-5">
+            </div>
+
+            <div class="control-group">
+                <label for="penalizacion-fn">Penalización Falso Negativo (Dejar pasar ataque): <span id="val-fn">-20</span></label>
+                <input type="range" id="penalizacion-fn" min="-50" max="0" value="-20">
+            </div>
+
+            <button id="btn-reiniciar">Reiniciar Aprendizaje</button>
+        </section>
+
+        <!-- Sección 3: Donde vivirá la animación -->
+        <section id="simulador">
+            <h2>Tráfico de Red en Tiempo Real</h2>
+            <!-- Este canvas es nuestro "pizarrón" para dibujar con JavaScript -->
+            <canvas id="red-canvas" width="800" height="300"></canvas>
+            
+            <div id="metricas">
+                <p>Precisión: <span id="precision-text">0%</span></p>
+                <p>Recompensa Total: <span id="recompensa-text">0</span></p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Aquí conectamos la lógica -->
+    <script src="app.js"></script>
+</body>
+</html>
