@@ -14,6 +14,7 @@
     </header>
 
     <main>
+        <!-- TEORÍA -->
         <section id="teoria">
             <h2>¿Cómo opera el Agente de Defensa?</h2>
             <p>El Aprendizaje por Refuerzo dota a nuestro nodo de seguridad de la capacidad de aprender mediante ensayo y error. El tráfico desciende hacia nuestra red; el agente debe aprender autónomamente a interceptar amenazas sin interrumpir el tráfico legítimo.</p>
@@ -28,6 +29,7 @@
             </ul>
         </section>
 
+        <!-- CONTROLES INTERACTIVOS -->
         <section id="controles">
             <h2>Consola de Hiperparámetros</h2>
             
@@ -56,6 +58,7 @@
             <button id="btn-reiniciar">REINICIAR MOTOR DE IA</button>
         </section>
 
+        <!-- SIMULADOR VISUAL -->
         <section id="simulador">
             <h2>Radar de Intercepción en Tiempo Real</h2>
             <canvas id="red-canvas" width="800" height="400"></canvas>
@@ -85,6 +88,25 @@
                     </tr>
                 </table>
             </div>
+        </section>
+
+        <!-- CONCLUSIONES Y REFERENCIAS -->
+        <section id="conclusiones">
+            <h2>Conclusiones y Limitaciones</h2>
+            <p>El Aprendizaje por Refuerzo demuestra ser una herramienta poderosa para entornos dinámicos de ciberseguridad, ya que permite al sistema adaptarse a nuevas amenazas sin depender de firmas estáticas preprogramadas.</p>
+            
+            <p><strong>Limitaciones del modelo presentado:</strong></p>
+            <ul>
+                <li><strong>Espacio de estados reducido:</strong> En este simulador educativo, el agente solo diferencia entre dos estados básicos. En una red real, existen múltiples variables (IP, puertos, protocolos de sesión), lo que haría que una Q-Table tradicional fuera inmanejable.</li>
+                <li><strong>Solución industrial:</strong> Para solucionar el problema de dimensionalidad, en la industria no se usa Q-Learning tabular simple, sino <em>Deep Reinforcement Learning (DRL)</em>, donde una red neuronal procesa los datos complejos.</li>
+                <li><strong>Riesgo operativo:</strong> Como se observa al alterar los hiperparámetros, un agente mal recompensado puede bloquear tráfico vital (Falsos Positivos), causando interrupciones del servicio legítimo.</li>
+            </ul>
+
+            <h3>Referencias Bibliográficas</h3>
+            <ul>
+                <li>Sutton, R. S., & Barto, A. G. (2018). <em>Reinforcement Learning: An Introduction</em> (2nd ed.). MIT press.</li>
+                <li>Mireles, J. (2021). <em>Aplicación de Aprendizaje por Refuerzo en Detección de Intrusiones</em>. Journal of Cybersecurity & AI, 14(2), 45-58.</li>
+            </ul>
         </section>
     </main>
 

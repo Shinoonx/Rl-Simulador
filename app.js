@@ -1,5 +1,3 @@
-// app.js
-
 const canvas = document.getElementById('red-canvas');
 const ctx = canvas.getContext('2d');
 
@@ -32,7 +30,7 @@ sliderFN.addEventListener('input', (e) => { penFN = parseInt(e.target.value); va
 sliderAlpha.addEventListener('input', (e) => { alpha = parseFloat(e.target.value); valAlpha.innerText = alpha.toFixed(2); });
 sliderEpsilon.addEventListener('input', (e) => { epsilon = parseFloat(e.target.value); valEpsilon.innerText = epsilon.toFixed(2); });
 
-// Q-Table
+
 let qTable = {
     'normal': [0, 0], 
     'ataque': [0, 0]
@@ -106,7 +104,7 @@ class Entidad {
 }
 
 function dibujarBase() {
-    // 1. LÍNEA DE DETECCIÓN (RADAR) - Nueva zona de evaluación alta
+    
     const lineaDeteccionY = canvas.height - 180;
     ctx.strokeStyle = 'rgba(56, 189, 248, 0.2)'; 
     ctx.setLineDash([5, 5]);
@@ -130,7 +128,7 @@ function dibujarBase() {
     ctx.lineTo(canvas.width, canvas.height - 30);
     ctx.stroke();
     
-    // 3. NODO DE SEGURIDAD (Torreta)
+    
     ctx.save();
     ctx.translate(canvas.width / 2, canvas.height - 30);
     ctx.shadowBlur = 15;
@@ -162,7 +160,7 @@ function animar() {
     
     dibujarBase();
 
-    // Dibujar Láseres
+    
     for (let i = lasers.length - 1; i >= 0; i--) {
         ctx.strokeStyle = '#3b82f6';
         ctx.lineWidth = 3;
@@ -187,7 +185,7 @@ function animar() {
         p.mover();
         p.dibujar();
 
-        // 1. ZONA DE EVALUACIÓN Y DECISIÓN (Ocurre alto en el radar)
+        
         if (p.estado === 'cayendo' && p.y >= lineaDeteccionY) {
             let estado = p.tipo;
             let accion;
@@ -223,12 +221,12 @@ function animar() {
             actualizarTablaHTML();
         }
 
-        // 2. ZONA DE ABSORCIÓN (Solo los paquetes 'permitidos' llegan hasta aquí)
+        
         if (p.estado === 'permitido' && p.y >= lineaEscudoY) {
             p.estado = 'absorbido';
         }
 
-        // 3. LIMPIEZA DE MEMORIA
+        
         if (p.estado === 'bloqueado' || p.estado === 'absorbido' || p.y > canvas.height) {
             entidades.splice(i, 1);
         }
